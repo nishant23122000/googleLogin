@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Navbar from "./components/Navbar";
+import Typography from "@material-ui/core/Typography";
+const useStyles = makeStyles(theme => ({
+  user: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+  },
 
-function App() {
+  image: {
+    width: "250px",
+    height: "250px",
+    borderRadius: "50px",
+    margin: "20px 200px"
+
+  }
+
+}));
+export default function App() {
+  const classes = useStyles();
+  const [user, setUser] = React.useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='home'>
+      <Navbar
+        user={user}
+        setUser={setUser}
+      />
+      {
+        !user.email ? (
+          <div><h1>Welcome To React Website</h1></div>
+        ) : (
+          <div className={classes.user}>
+            <Typography variant="h4" className={classes.title}>
+              Hello , <b>{user.email}</b>
+            </Typography>
+            <div className={classes.imgSection}>
+              <img className={classes.image} src={user.image} alt="user" />
+            </div>
+
+          </div>
+
+        )
+      }
     </div>
   );
 }
-
-export default App;
